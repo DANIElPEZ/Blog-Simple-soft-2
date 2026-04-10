@@ -1,32 +1,23 @@
-const STORAGE_KEY = 'posts';
+import sqlite3 from 'sqlite3';
+import { open } from 'sqlite';
 
-export function getPosts() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+export async function connectDB() {
+    return open({
+        filename: './blog.db',
+        driver: sqlite3.Database
+    });
 }
 
-export function savePosts(posts) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-}
+export async function initDB() {
+    const db = await connectDB();
 
-export function addPost(post) {
-    const posts = getPosts();
-    posts.push(post);
-    savePosts(posts);
-}
+    await db.exec(`
+        CREATE TABLE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL
+        )
+    `);
 
-export function updatePost(id, updatedPost) {
-    const posts = getPosts().map(post =>
-        post.id === id ? { ...post, ...updatedPost } : post
-    );
-
-    savePosts(posts);
-}
-
-export function deletePost(id) {
-    const posts = getPosts().filter(post => post.id !== id);
-    savePosts(posts);
-}
-
-export function getPostById(id) {
-    return getPosts().find(post => post.id === id);
+    return db;
 }
