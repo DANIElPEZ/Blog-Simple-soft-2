@@ -1,1 +1,33 @@
-/node_modules
+# Dependencias
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+.project
+.classpath
+
+# Ambiente
+.env
+.env.local
+.env.*.local
+
+# Datos
+data/posts.json
+
+# OS
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
