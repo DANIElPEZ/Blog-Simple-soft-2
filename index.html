@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog App</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        form, .post {
+            border: 1px solid #ccc;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        input, textarea {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        button {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Publicaciones</h1>
+
+    <form id="postForm">
+        <input type="hidden" id="postId">
+
+        <input
+            type="text"
+            id="title"
+            placeholder="Título"
+            required
+        >
+
+        <textarea
+            id="content"
+            placeholder="Contenido"
+            required
+        ></textarea>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <div id="postList"></div>
+
+    <script type="module" src="frontend.js"></script>
+</body>
+</html>
