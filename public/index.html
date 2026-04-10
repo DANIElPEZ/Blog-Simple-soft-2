@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Simple - API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .group {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .endpoints {
+            list-style: none;
+        }
+        
+        .endpoints li {
+            padding: 15px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #764ba2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-right: 10px;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        .get {
+            background: #61affe;
+            color: white;
+        }
+        
+        .post {
+            background: #49cc90;
+            color: white;
+        }
+        
+        .put {
+            background: #fca130;
+            color: white;
+        }
+        
+        .delete {
+            background: #f93e3e;
+            color: white;
+        }
+        
+        .endpoint-path {
+            flex: 1;
+            color: #333;
+            font-family: monospace;
+        }
+        
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Blog Simple API</h1>
+        <p class="subtitle">Sistema de gestión de publicaciones</p>
+        
+        <div class="group">
+            <strong>Integrantes:</strong>
+            <p>Daniel Gonzalez, Andres Pineda, Juan Ramos</p>
+        </div>
+        
+        <div class="info-box">
+            ℹ️ API base: <code>http://localhost:3000/api/posts</code>
+        </div>
+        
+        <h3 style="margin-bottom: 15px;">📡 Endpoints disponibles:</h3>
+        
+        <ul class="endpoints">
+            <li>
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/api/posts</span>
+                <span>Obtener todos los posts</span>
+            </li>
+            <li>
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/api/posts/:id</span>
+                <span>Obtener post por ID</span>
+            </li>
+            <li>
+                <span class="method post">POST</span>
+                <span class="endpoint-path">/api/posts</span>
+                <span>Crear nuevo post</span>
+            </li>
+            <li>
+                <span class="method put">PUT</span>
+                <span class="endpoint-path">/api/posts/:id</span>
+                <span>Actualizar post</span>
+            </li>
+            <li>
+                <span class="method delete">DELETE</span>
+                <span class="endpoint-path">/api/posts/:id</span>
+                <span>Eliminar post</span>
+            </li>
+        </ul>
+        
+        <footer>
+            <p>Blog Simple v1.0.0 - Grupo 3 DINAMITA</p>
+        </footer>
+    </div>
+</body>
+</html>
