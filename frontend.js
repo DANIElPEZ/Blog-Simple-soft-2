@@ -4,29 +4,33 @@ const contentInput = document.getElementById('content');
 const postIdInput = document.getElementById('postId');
 const postList = document.getElementById('postList');
 
+const API = 'http://localhost:3000/posts';
+
 async function loadPosts() {
-    const response = await fetch('http://localhost:3000/posts');
-    const posts = await response.json();
+    try {
+        const res = await fetch(API);
+        const posts = await res.json();
 
-    postList.innerHTML = '';
+        postList.innerHTML = '';
 
-    posts.forEach(post => {
-        const div = document.createElement('div');
+        posts.forEach(post => {
+            const div = document.createElement('div');
+            div.className = 'post';
 
-        div.innerHTML = `
-            <h3>${post.title}</h3>
-            <p>${post.content}</p>
-            <button onclick="editPost(${post.id}, '${post.title}', '${post.content}')">
-                Editar
-            </button>
-            <button onclick="deletePost(${post.id})">
-                Eliminar
-            </button>
-            <hr>
-        `;
+            div.innerHTML = `
+                <h3>${post.title}</h3>
+                <p>${post.content}</p>
+                <div class="actions">
+                    <button onclick="editPost(${post.id}, \`${post.title}\`, \`${post.content}\`)">Editar</button>
+                    <button onclick="deletePost(${post.id})">Eliminar</button>
+                </div>
+            `;
 
-        postList.appendChild(div);
-    });
+            postList.appendChild(div);
+        });
+    } catch (err) {
+        console.error('Error cargando posts:', err);
+    }
 }
 
 window.editPost = (id, title, content) => {
@@ -36,14 +40,11 @@ window.editPost = (id, title, content) => {
 };
 
 window.deletePost = async (id) => {
-    await fetch(`http://localhost:3000/posts/${id}`, {
-        method: 'DELETE'
-    });
-
+    await fetch(`${API}/${id}`, { method: 'DELETE' });
     loadPosts();
 };
 
-form.addEventListener('submit', async e => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const id = postIdInput.value;
@@ -53,20 +54,18 @@ form.addEventListener('submit', async e => {
         content: contentInput.value
     };
 
+    if (!data.title || !data.content) return;
+
     if (id) {
-        await fetch(`http://localhost:3000/posts/${id}`, {
+        await fetch(`${API}/${id}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
     } else {
-        await fetch('http://localhost:3000/posts', {
+        await fetch(API, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
     }

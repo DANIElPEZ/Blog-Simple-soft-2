@@ -1,9 +1,11 @@
 import express from 'express';
 import { initDB } from './database.js';
+import cors from 'cors';
 
 const app = express();
 const db = await initDB();
 
+app.use(cors());
 app.use(express.json());
 
 app.get('/posts', async (req, res) => {
@@ -35,7 +37,7 @@ app.put('/posts/:id', async (req, res) => {
         [title, content, id]
     );
 
-    res.json({ message: 'Post actualizado' });
+    res.json({ ok: true });
 });
 
 app.delete('/posts/:id', async (req, res) => {
@@ -43,7 +45,7 @@ app.delete('/posts/:id', async (req, res) => {
 
     await db.run('DELETE FROM posts WHERE id = ?', [id]);
 
-    res.json({ message: 'Post eliminado' });
+    res.json({ ok: true });
 });
 
 app.listen(3000, () => {
