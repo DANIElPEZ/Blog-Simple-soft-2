@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+    <h1>Posts</h1>
+
+    <form id="postForm">
+        <input type="hidden" id="postId">
+
+        <input type="text" id="title" placeholder="Título" required>
+        <br><br>
+
+        <textarea id="content" placeholder="Contenido" required></textarea>
+        <br><br>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <hr>
+
+    <div id="postList"></div>
+
+    <script src="frontend.js"></script>
+</body>
+</html>
