@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Grupo 3 DINAMITA</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Blog</h1>
+
+        <form id="postForm">
+            <input type="hidden" id="postId">
+
+            <div class="form-group">
+                <label for="author">Nombre de usuario</label>
+                <input 
+                    type="text" 
+                    id="author" 
+                    placeholder="Escribe tu nombre"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input 
+                    type="text" 
+                    id="title" 
+                    placeholder="Escribe el título del post"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="content">Contenido</label>
+                <textarea 
+                    id="content" 
+                    placeholder="Escribe el contenido del post"
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit">💾 Guardar Post</button>
+        </form>
+
+        <div id="postList"></div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
