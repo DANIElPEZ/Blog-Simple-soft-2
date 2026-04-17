@@ -1,19 +1,26 @@
 {
-  "name": "blog",
+  "name": "blog-simple",
   "version": "1.0.0",
-  "description": "- blog simple",
-  "main": "backend.js",
+  "description": "Blog simple - Grupo 3 DINAMITA",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DANIElPEZ/Blog-Simple-soft-2.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "blog",
+    "express",
+    "sqlite",
+    "nodejs"
+  ],
+  "author": "Grupo 3 DINAMITA",
   "license": "ISC",
-  "type": "module",
   "bugs": {
     "url": "https://github.com/DANIElPEZ/Blog-Simple-soft-2/issues"
   },
@@ -23,5 +30,8 @@
     "express": "^5.2.1",
     "sqlite": "^5.1.1",
     "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
   }
 }
