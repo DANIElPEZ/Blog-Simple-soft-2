@@ -21,21 +21,22 @@ export const postsController = {
 
     async create(req, res) {
         try {
-            const { title, content } = req.body;
+            const { title, content, author } = req.body;
 
-            if (!title || !content) {
-                return res.status(400).json({ error: 'Title and content are required' });
+            if (!title || !content || !author) {
+                return res.status(400).json({ error: 'Title, content and author are required' });
             }
 
             const result = await db.run(
-                'INSERT INTO posts (title, content) VALUES (?, ?)',
-                [title, content]
+                'INSERT INTO posts (title, content, author) VALUES (?, ?, ?)',
+                [title, content, author]
             );
 
             res.status(201).json({
                 id: result.lastID,
                 title,
-                content
+                content,
+                author
             });
         } catch (error) {
             console.error('Error creating post:', error);
@@ -46,15 +47,15 @@ export const postsController = {
     async update(req, res) {
         try {
             const { id } = req.params;
-            const { title, content } = req.body;
+            const { title, content, author } = req.body;
 
-            if (!title || !content) {
-                return res.status(400).json({ error: 'Title and content are required' });
+            if (!title || !content || !author) {
+                return res.status(400).json({ error: 'Title, content and author are required' });
             }
 
             await db.run(
-                'UPDATE posts SET title = ?, content = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = ?',
-                [title, content, id]
+                'UPDATE posts SET title = ?, content = ?, author = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = ?',
+                [title, content, author, id]
             );
 
             res.json({ ok: true, message: 'Post updated successfully' });

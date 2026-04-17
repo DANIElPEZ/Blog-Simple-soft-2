@@ -1,10 +1,19 @@
 const form = document.getElementById('postForm');
 const titleInput = document.getElementById('title');
 const contentInput = document.getElementById('content');
+const authorInput = document.getElementById('author');
 const postIdInput = document.getElementById('postId');
 const postList = document.getElementById('postList');
 
 const API = 'http://localhost:3000/posts';
+
+// Función segura para escapar HTML
+function escapeHTML(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
 async function loadPosts() {
     try {
@@ -17,11 +26,17 @@ async function loadPosts() {
             const div = document.createElement('div');
             div.className = 'post';
 
+            const createdDate = post.createdAt ? new Date(post.createdAt).toLocaleDateString('es-ES') : 'Sin fecha';
+            const author = post.author || 'Anónimo';
+            const title = post.title || 'Sin título';
+            const content = post.content || 'Sin contenido';
+
             div.innerHTML = `
-                <h3>${post.title}</h3>
-                <p>${post.content}</p>
+                <h3>${escapeHTML(title)}</h3>
+                <p><strong>${createdDate} • ${escapeHTML(author)}</strong></p>
+                <p>${escapeHTML(content)}</p>
                 <div class="actions">
-                    <button onclick="editPost(${post.id}, \`${post.title}\`, \`${post.content}\`)">Editar</button>
+                    <button onclick="editPost(${post.id}, '${escapeAttribute(title)}', '${escapeAttribute(content)}', '${escapeAttribute(author)}')">Editar</button>
                     <button onclick="deletePost(${post.id})">Eliminar</button>
                 </div>
             `;
@@ -30,13 +45,21 @@ async function loadPosts() {
         });
     } catch (err) {
         console.error('Error cargando posts:', err);
+        postList.innerHTML = '<p style="color: red;">Error al cargar posts: ' + err.message + '</p>';
     }
 }
 
-window.editPost = (id, title, content) => {
+// Función para escapar atributos
+function escapeAttribute(text) {
+    if (!text) return '';
+    return text.replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/&/g, '&amp;');
+}
+
+window.editPost = (id, title, content, author) => {
     postIdInput.value = id;
     titleInput.value = title;
     contentInput.value = content;
+    authorInput.value = author;
 };
 
 window.deletePost = async (id) => {
@@ -51,10 +74,11 @@ form.addEventListener('submit', async (e) => {
 
     const data = {
         title: titleInput.value,
-        content: contentInput.value
+        content: contentInput.value,
+        author: authorInput.value
     };
 
-    if (!data.title || !data.content) return;
+    if (!data.title || !data.content || !data.author) return;
 
     if (id) {
         await fetch(`${API}/${id}`, {

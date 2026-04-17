@@ -1,16 +1,17 @@
 const API = 'http://localhost:3000/api/posts';
 
-let form, titleInput, contentInput, postIdInput, postList;
+let form, titleInput, contentInput, authorInput, postIdInput, postList;
 
 // Initialize DOM elements when the page is ready
 function initializeDOMElements() {
     form = document.getElementById('postForm');
     titleInput = document.getElementById('title');
     contentInput = document.getElementById('content');
+    authorInput = document.getElementById('author');
     postIdInput = document.getElementById('postId');
     postList = document.getElementById('postList');
 
-    if (!form || !titleInput || !contentInput || !postIdInput || !postList) {
+    if (!form || !titleInput || !contentInput || !authorInput || !postIdInput || !postList) {
         console.error('❌ DOM elements not found');
         return false;
     }
@@ -47,10 +48,10 @@ async function loadPosts() {
             
             div.innerHTML = `
                 <h3>${escapeHTML(post.title)}</h3>
-                <div class="post-meta">Publicado: ${createdDate}</div>
+                <div class="post-meta">${createdDate} • ${escapeHTML(post.author)}</div>
                 <p>${escapeHTML(post.content)}</p>
                 <div class="actions">
-                    <button class="edit-btn" onclick="editPost(${post.id}, '${escapeAttribute(post.title)}', '${escapeAttribute(post.content)}')">
+                    <button class="edit-btn" onclick="editPost(${post.id}, '${escapeAttribute(post.title)}', '${escapeAttribute(post.content)}', '${escapeAttribute(post.author)}')">
                         ✏️ Editar
                     </button>
                     <button class="delete-btn" onclick="deletePost(${post.id})">
@@ -99,10 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Edit a post - populate form with post data
      */
-    window.editPost = (id, title, content) => {
+    window.editPost = (id, title, content, author) => {
         postIdInput.value = id;
         titleInput.value = title;
         contentInput.value = content;
+        authorInput.value = author;
         titleInput.focus();
     };
 
@@ -133,10 +135,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = postIdInput.value;
         const data = {
             title: titleInput.value.trim(),
-            content: contentInput.value.trim()
+            content: contentInput.value.trim(),
+            author: authorInput.value.trim()
         };
 
-        if (!data.title || !data.content) {
+        if (!data.title || !data.content || !data.author) {
             alert('Por favor completa todos los campos');
             return;
         }
